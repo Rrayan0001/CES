@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Child {
+  id              Int               @id @default(autoincrement())
+  fullName        String
+  dob             DateTime
+  age             Int
+  religion        String
+  language        String
+  contact         String
+  address         String
+  height          Int
+  image           String
+  message         String
+  date            DateTime          @default(now())
+  sponsorships    SponsoredChild[]
+
+  @@map("child")
+}
+
+model Sponsor {
+  id              Int               @id @default(autoincrement())
+  fullName        String
+  username        String            @unique
+  password        String
+  address         String
+  contact         String
+  email           String            @unique
+  message         String?
+  image           String?
+  sponsorships    SponsoredChild[]
+
+  @@map("sponsor")
+}
+
+model SponsoredChild {
+  id              Int               @id @default(autoincrement())
+  fullName        String
+  amount          String
+  date            DateTime          @default(now())
+
+  // Relations
+  childId         Int
+  child           Child             @relation(fields: [childId], references: [id], onDelete: Cascade)
+  
+  sponsorId       Int?
+  sponsor         Sponsor?          @relation(fields: [sponsorId], references: [id], onDelete: SetNull)
+
+  @@map("sponsoredchild")
+}
+
+model User {
+  id              Int               @id @default(autoincrement())
+  firstName       String
+  middleName      String?
+  lastName        String
+  email           String            @unique
+  password        String
+  mobile          String
+  image           String?
+  description     String?
+  date            DateTime          @default(now())
+
+  roleId          Int?
+  role            Role?             @relation(fields: [roleId], references: [id], onDelete: SetNull)
+
+  @@map("user")
+}
+
+model Role {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  description     String
+  users           User[]
+
+  @@map("role_id")
+}
+
+
