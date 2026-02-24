@@ -1,4 +1,14 @@
+# Child Education Support (CES) Platform
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Platform Features & Verification Instructions
+
+The current deployment includes the following key updates:
+- **Authentication**: The Login page now has a "Create one" link mapping to `/register`, and the Register page has a "Sign in" link back to `/login`.
+- **Sponsor Features**: The Sponsor Dashboard includes an "Edit Profile" button.
+- **Admin Access**: The Admin sidebar contains an "Admin Users" link.
+- **Security Check**: Middleware properly allows public access to `/`, `/children`, `/login`, and `/register` while protecting `/dashboard` and `/admin`.
 
 ## Getting Started
 
